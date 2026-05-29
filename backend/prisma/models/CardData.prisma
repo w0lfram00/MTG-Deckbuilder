@@ -1,0 +1,100 @@
+model CardData {
+    id      String  @id @db.Uuid @default(uuid())
+    name    String  
+    oracle_id String? @db.Uuid   
+    cardId String @db.Uuid @unique
+    card Card? @relation(fields: [cardId], references: [id])
+    multiverse_ids Int[]
+    tcgplayer_id Int?
+    cardmarket_id Int?
+    released_at DateTime @db.Date
+    uri     String
+    scryfall_uri String
+    layout  String
+    rulings_uri String
+    highres_image Boolean
+    image_uris Json? // Object with keys for different image sizes (small, normal, large, png, art_crop, border_crop)
+    mana_cost String? // Storing as string for simplicity if complex JSON structure is not desired in schema, or use Json if preferred. Using Json based on instruction.
+    cmc     Float?
+    type_line String
+    oracle_text String?
+    power   String?
+    toughness String?
+    loyalty String?
+    edhrec_rank Int?
+    all_parts Json?
+    card_faces Json?
+    life_modifier String?
+    hand_modifier String?
+    produced_mana Json? // Array of strings
+    colors  Json? // Array of strings
+    color_identity Json? // Array of strings
+    keywords String[] // Array of strings
+    legalities Json // Object for legalities
+    reserved Boolean
+    game_changer Boolean? @default(false)
+    finishes String[] // Array of strings
+    oversized Boolean
+    promo    Boolean
+    reprint  Boolean
+    variation Boolean
+    set_id   String
+    set      String
+    set_name String
+    set_type String
+    set_uri  String
+    set_search_uri String
+    scryfall_set_uri String
+    prints_search_uri String
+    collector_number String
+    digital  Boolean
+    rarity   String?
+    flavor_text String?
+    artist   String?
+    artist_ids Json? // Array of strings
+    illustration_id String? @db.Uuid
+    border_color String?
+    frame    String
+    full_art  Boolean
+    textless  Boolean
+    attraction_lights Json?
+    booster Boolean
+    card_back_id String? @db.Uuid
+    content_warning Boolean?
+    flavor_name String?
+    prices Json
+    purchase_uris Json?
+    related_uris Json
+    story_spotlight Boolean
+    variation_of String? @db.Uuid   
+
+    @@index([name, oracle_id, cardId])
+}
+
+
+    // model CardFace {
+    //     id String  @id @db.Uuid
+    //     name String
+    //     artist String?
+    //     artist_id String? @db.Uuid
+    //     illustration_id String? @db.Uuid
+    //     cmc Int?
+    //     color_indicator String?
+    //     colors String?
+    //     defense String?
+    //     flavor_text String?
+    //     image_uris Json?
+    //     layout String?
+    //     mana_cost String?
+    //     oracle_id String? @db.Uuid
+    //     oracle_text String?
+    //     power String?
+    //     printed_name String?
+    //     printed_text String?
+    //     toughness String?
+    //     type_line String?
+    //     watermark String?
+
+    //     card_data CardData? @relation(fields: [faceId], references: [id])
+    //     faceId String @db.Uuid
+    // }

@@ -1,0 +1,21 @@
+{
+  "name": "mtg-deckbuilder",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "backend"
+  ],
+  "scripts": {
+    "start:backend": "npm --workspace backend run dev",
+    "build:backend": "npm --workspace backend run build",
+    "test:backend": "npm --workspace backend run test",
+    "lint:backend": "npm --workspace backend run lint"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.30.1",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0"
+  }
+}

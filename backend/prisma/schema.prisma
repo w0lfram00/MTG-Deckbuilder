@@ -1,0 +1,54 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Card {
+  id        String @id @default(uuid()) @db.Uuid
+  name      String
+  oracle_id String @db.Uuid
+  cardData CardData?
+  deckCards DeckCard[]
+  @@index([name, oracle_id])
+}
+
+model Deck {
+  id        String   @id @db.Uuid @default(uuid())
+  name      String
+  format    Format
+  cards     DeckCard[]
+  userId   String  @db.Uuid
+  user     User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model DeckCard {
+  deck      Deck @relation(fields: [deckId], references: [id])
+  deckId  String @db.Uuid
+  cardId   String @db.Uuid
+  card      Card @relation(fields: [cardId], references: [id])
+  quantity  Int @default(1)
+  @@id([deckId, cardId])
+}
+
+enum Format {
+  Standard
+  Vintage
+  Modern
+  Commander
+  Legacy
+  Pauper
+  Pioneer
+  Oathbreaker
+  Alchemy
+  Historic
+  Brawl
+  Timeless
+  Penny
+}
